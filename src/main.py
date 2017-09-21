@@ -1,6 +1,6 @@
 import random
 
-TARGET_NUM = 42.0
+TARGET_NUM = 42.0 #Goal
 
 class cell():
     ftion = ['x','x','x','x','x','x','x']
