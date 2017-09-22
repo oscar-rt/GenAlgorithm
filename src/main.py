@@ -66,15 +66,22 @@ def reproduce(cell1, cell2):
     newcell.updateF()
     return newcell
 
+def reptwice(celllist, cell1, cell2):
+    celluno = reproduce(cell1, cell2)
+    celldos = reproduce(cell2, cell1)
+    celllist.append(celluno)
+    celllist.append(celldos)
+
 def bubosort(cell_list):
     swapped = False
     while(not swapped):
         swapped = True
-        for x in range(1,20):
-            if cell_list[x - 1].egradient > cell_list[x].egradient:
+        for x in range(1, 20):
+            if (cell_list[x-1].egradient > cell_list[x].egradient):
 
                 tempcell = cell_list[x]
-                cell_list[x] =
+                cell_list[x] = cell_list[x - 1]
+                cell_list[x - 1] = tempcell
 
                 swapped = False
 
@@ -104,6 +111,7 @@ def main():
     generations = 0
     cellpool = []
     fitnesspool = []
+    birthpool = []
 
     while(running == True and generations < 100):
 
@@ -112,13 +120,29 @@ def main():
             for x in range(0, 20):
                 placeholder = cell()
                 placeholder.generateF()
-                cellpool.append(placeholder);
+                cellpool.append(placeholder)
         else:
-            break
-        generations+=1
+            #move important cells to fitness pool, halve population
+            for x in range(0,10):
+               fitnesspool.append(cellpool[x])
+            #reproduce and fill birthpool
+            y = 2
+            for x in range(0,10):
+                if(x == 0):#the x could cause confusion here but I'm just using it as an iterator
+                    for x in range(0, 10):
+                        reptwice(birthpool, fitnesspool[0], fitnesspool[x])
+                elif(x == 1):
+                    for x in range(1, 4):
+                        reptwice(birthpool, fitnesspool[1], fitnesspool[random.randint(2,9)])
+                else:
+                    reptwice(birthpool, fitnesspool[x], fitnesspool[random.randint(x, 9)])
+                    y+=1
 
+        bubosort(cellpool)
         for x in range(0, 20):
-            print(cellpool[x].ftion,"=" ,cellpool[x].value, " eG: ",cellpool[x].egradient)
+            print("Cell ", x+1 + (generations-1) * 10,cellpool[x].ftion,"=" ,cellpool[x].value, " eG: ",cellpool[x].egradient)
+        cellpool.clear()
+        generations+=1
 
 if __name__ == '__main__':
     main()
