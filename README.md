@@ -22,3 +22,5 @@ Fully functional at finding a function for the target number which was the main 
 Added diversity to boost the algorithm's ability to find alternate routes, rather than
 getting stuck at a value for ever
 
+ver 1.01
+Parents are carried over into next generations, can be removed easily

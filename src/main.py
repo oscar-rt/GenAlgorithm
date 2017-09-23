@@ -1,6 +1,6 @@
 import random
 
-TARGET_NUM = 500 #Goal
+TARGET_NUM = 1000 #Goal
 
 class cell():
     def __init__(self):
@@ -117,6 +117,7 @@ def main():
     cellpool = []
     fitnesspool = []
     birthpool = []
+    parents = []
 
     poolscreenshot = []
 
@@ -135,6 +136,7 @@ def main():
         #move important cells to fitness pool, halve population
         for x in range(0,10):
             fitnesspool.append(cellpool[x])
+            parents.append(cellpool[x])
         #diversity is good, here's some invasions:
         if generations % 10 == 0:
             if(poolscreenshot == cellpool):
@@ -168,8 +170,11 @@ def main():
         bubosort(birthpool)
 
         cellpool.clear()
-        for x in range(0, 20):
+        for x in range(0, 10):#refil cellpool with birthpool / change from 10 to 20 and remove parents append for no possible incest
             cellpool.append(birthpool[x])
+        for x in range(10, 20):
+            cellpool.append(parents[x-10])
+        #possible incest end
 
         for x in range(0, 20):
             if(cellpool[x].egradient == 0):
