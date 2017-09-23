@@ -16,3 +16,9 @@ Added update function
 Added bubble sort
 Began working on main function
 **NOTE: Program does not currently compile as it is under construction**
+
+ver 1
+Fully functional at finding a function for the target number which was the main goal
+Added diversity to boost the algorithm's ability to find alternate routes, rather than
+getting stuck at a value for ever
+
